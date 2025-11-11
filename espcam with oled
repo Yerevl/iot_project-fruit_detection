@@ -1,11 +1,10 @@
-#include <IoT-FruitDetection-Project_inferencing.h>
+#include <IoT-FruitDetection-Project_inferencing.h> // modify with your project title, Replace the xxxx
 #include "edge-impulse-sdk/dsp/image/image.hpp"
-
 #include "esp_camera.h"
 
-#define CAMERA_MODEL_AI_THINKER\
+#define CAMERA_MODEL_AI_THINKER // Has PSRAM
 
-#if defined(CAMERA_MODEL_AI_THINKER)
+#elif defined(CAMERA_MODEL_AI_THINKER)
 #define PWDN_GPIO_NUM 32
 #define RESET_GPIO_NUM -1
 #define XCLK_GPIO_NUM 0
@@ -28,17 +27,17 @@
 #error "Camera model not selected"
 #endif
 
-/* Constant defines -------------------------------------------------------- */
+/* Constant defines -------------------------------------------------------- 
+these constants define the raw frame buffer as a 320x240 pixel image with 3 bytes per pixel */
 #define EI_CAMERA_RAW_FRAME_BUFFER_COLS 320
 #define EI_CAMERA_RAW_FRAME_BUFFER_ROWS 240
 #define EI_CAMERA_FRAME_BYTE_SIZE 3
-
 
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-// ESP32-CAM doesn't have dedicated i2c pins, so we define our own. Let's choose 15 and 14
+// ESP32-CAM doesn't have dedicated i2c pins, so we define our own. We choose 15 and 14
 #define I2C_SDA 15
 #define I2C_SCL 14
 TwoWire I2Cbus = TwoWire(0);
@@ -49,9 +48,6 @@ TwoWire I2Cbus = TwoWire(0);
 #define OLED_RESET -1
 #define SCREEN_ADDRESS 0x3C
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &I2Cbus, OLED_RESET);
-
-
-
 
 /* Private variables ------------------------------------------------------- */
 static bool debug_nn = false;  // Set this to true to see e.g. features generated from the raw signal
@@ -103,7 +99,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
 
-  // Initialize I2C with our defined pins
+  // Initialize I2C with our defined pins for LCD
   I2Cbus.begin(I2C_SDA, I2C_SCL, 100000);
 
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
@@ -112,7 +108,6 @@ void setup() {
     while (true)
       ;
   }
-
 
   //comment out the below line to start inference immediately after upload
   while (!Serial)
