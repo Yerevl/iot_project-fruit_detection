@@ -9,13 +9,14 @@ class InferenceResource(resource.Resource):
         # Connect to MySQL
         conn = mysql.connector.connect(
             user='root',               # Default XAMPP user
-            password='',               # Default XAMPP password (change if needed)
+            password='yeriftw23',               # Default XAMPP password (change if needed)
             host='127.0.0.1',
-            database='iotdata'         # Your DB name
+            database='fruit_detection'         # Your DB name
         )
-        cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO inference_table(result) VALUES (%s)", (data,))
+            "INSERT INTO inference (Label, Value, x, y, width, height) VALUES (%s, %s, %s, %s, %s, %s)",
+            (label, value, x, y, width, height)
+        )
         conn.commit()
         cursor.close()
         conn.close()
