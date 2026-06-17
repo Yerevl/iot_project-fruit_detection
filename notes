@@ -1,4 +1,0 @@
-libraries:
-  LCD OLED with a 0.96 or 1 inch screen: Adafruit SSD1306 (<Adafruit_SSD1306.h>) & Adafruit GFX (<Adafruit_GFX.h>)
-  I2C communication: Wire.h
-
